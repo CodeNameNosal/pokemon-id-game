@@ -1,0 +1,32 @@
+body {
+  text-align: center;
+  background-color: rosybrown;
+}
+
+#correct-image {
+  transition: all .25s linear;
+  transform: scale(2.5) rotate(360deg);
+}
+
+#incorrect-image {
+  filter: blur(5px);
+}
+
+h1 {
+  font-family: 'Acme', sans-serif;
+  color: maroon;
+}
+
+input[type="text"] {
+  font-family: 'Ruda', sans-serif;
+  text-align: center;
+  width: 25%;
+  background-color: beige;
+  border: 0px;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+input:focus {
+    outline: none;
+}
