@@ -1,6 +1,7 @@
 import React, { Component }  from 'react';
 import InputBox from './components/InputBox';
 import PokePic from './components/PokePic';
+import Replay from './components/Replay';
 
 class App extends Component {
   constructor(props) {
@@ -13,10 +14,16 @@ class App extends Component {
       front: ""
     }
     this.handleInputBox = this.handleInputBox.bind(this)
+    this.fetchPokemon = this.fetchPokemon.bind(this)
+    this.playAgain = this.playAgain.bind(this)
     }
 
 
   componentDidMount() {
+    this.fetchPokemon()
+  }
+
+  fetchPokemon(){
     const starterIds = [1, 4, 7]
     const selectedPokemon = starterIds[Math.floor(Math.random() * starterIds.length)];
     fetch(`https://pokeapi.co/api/v2/pokemon-form/${selectedPokemon}`)
@@ -37,10 +44,20 @@ class App extends Component {
     }
   }
 
+  playAgain(){
+    this.setState({ solved: false, input:""})
+    this.fetchPokemon()
+  }
+
   render() {
+    let replay
+    if (this.state.solved) {
+      replay = <Replay playAgain={this.playAgain}/>
+    }
+
     return(
       <div>
-        <h1>Pokemon id game</h1>
+        <h1 className="shake-chunk shake-constant">Pokemon id game</h1>
         <br />
         <PokePic solved={this.state.solved} back={this.state.back} front={this.state.front}/>
         <br />
@@ -48,6 +65,7 @@ class App extends Component {
         <p><InputBox
           type="text" passedValue={this.state.input} changeHandler={this.handleInputBox}
         /></p>
+        {replay}
       </div>
     )
   }
